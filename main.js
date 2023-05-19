@@ -16,7 +16,14 @@ const Gameboard = (() => {
     boxes.forEach((box) => box.addEventListener("click", Game.handleClick));
   };
 
-  return { render };
+  const update = (index, signal) => {
+    gameboard[index] = signal;
+    render();
+  };
+
+  const getGameboard = () => gameboard;
+
+  return { render, getGameboard, update };
 })();
 
 const createPlayer = (name, signal) => {
@@ -37,7 +44,7 @@ const Game = (() => {
     currentPlayerIndex === 0
       ? (currentPlayerIndex = 1)
       : (currentPlayerIndex = 0);
-    console.log(players[currentPlayerIndex].signal, index);
+    Gameboard.update(index, players[currentPlayerIndex].signal);
   };
 
   return { start, handleClick };
