@@ -19,6 +19,7 @@ const Gameboard = (() => {
   const update = (index, signal) => {
     gameboard[index] = signal;
     render();
+    console.log(gameboard);
   };
 
   const getGameboard = () => gameboard;
@@ -41,9 +42,14 @@ const Game = (() => {
 
   const handleClick = (event) => {
     const [, index] = event.target.id.split("-");
-    currentPlayerIndex === 0
-      ? (currentPlayerIndex = 1)
-      : (currentPlayerIndex = 0);
+    if (Gameboard.getGameboard()[index] !== "") {
+      return;
+    } else {
+      currentPlayerIndex === 0
+        ? (currentPlayerIndex = 1)
+        : (currentPlayerIndex = 0);
+    }
+
     Gameboard.update(index, players[currentPlayerIndex].signal);
   };
 
