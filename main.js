@@ -18,5 +18,8 @@ const Gameboard = (() => {
 
 document.querySelector("#btn-start").addEventListener("click", () => {
   gameContainer.style.display = "grid";
+  setTimeout(function () {
+    gameContainer.classList.add("show");
+  }, 1000);
   Gameboard.render();
 });
