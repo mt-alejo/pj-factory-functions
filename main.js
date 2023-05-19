@@ -11,6 +11,11 @@ const Gameboard = (() => {
     );
     gameContainer.innerHTML = boardHTML;
     console.log("Rendering");
+
+    const boxes = document.querySelectorAll(".game-box");
+    boxes.forEach((box) =>
+      box.addEventListener("click", () => console.log("Works"))
+    );
   };
 
   return { render };
@@ -20,6 +25,6 @@ document.querySelector("#btn-start").addEventListener("click", () => {
   gameContainer.style.display = "grid";
   setTimeout(function () {
     gameContainer.classList.add("show");
-  }, 1000);
+  }, 500);
   Gameboard.render();
 });
