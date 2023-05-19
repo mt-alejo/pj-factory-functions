@@ -19,7 +19,6 @@ const Gameboard = (() => {
   const update = (index, signal) => {
     gameboard[index] = signal;
     render();
-    console.log(gameboard);
   };
 
   const getGameboard = () => gameboard;
@@ -49,12 +48,40 @@ const Game = (() => {
         ? (currentPlayerIndex = 1)
         : (currentPlayerIndex = 0);
     }
-
     Gameboard.update(index, players[currentPlayerIndex].signal);
+    if (checkForWinner(Gameboard.getGameboard())) {
+      console.log(`Winner: ${players[currentPlayerIndex].name}`);
+    }
   };
 
   return { start, handleClick };
 })();
+
+const checkForWinner = (gameboard) => {
+  const winCombination = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+  ];
+
+  for (let i = 0; i < winCombination.length; i++) {
+    const [a, b, c] = winCombination[i];
+    if (
+      gameboard[a] &&
+      gameboard[a] === gameboard[b] &&
+      gameboard[a] === gameboard[c]
+    ) {
+      return true;
+    }
+  }
+
+  return false;
+};
 
 document.querySelector("#btn-start").addEventListener("click", () => {
   gameContainer.style.display = "grid";
